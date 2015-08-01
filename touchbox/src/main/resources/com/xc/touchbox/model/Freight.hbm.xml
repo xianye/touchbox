@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Freight" table="freight">
+        <id name="freightId" type="java.lang.Integer">
+            <column name="freightId" />
+            <generator class="identity" />
+        </id>
+        <property name="cityId" type="string">
+            <column name="cityId" />
+        </property>
+        <property name="cityName" type="string">
+            <column name="cityName" />
+        </property>
+        <property name="deliveryWarehouse" type="string">
+            <column name="deliveryWarehouse" />
+        </property>
+        <property name="fee" type="float">
+            <column name="fee"/>
+        </property>        
+        <property name="status" type="int">
+            <column name="status" not-null="true"/>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

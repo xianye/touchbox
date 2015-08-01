@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.NotificationMessage" table="notification_message" catalog="touchbox">
+        <id name="messageId" type="java.lang.Long">
+            <column name="messageId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="information" class="com.xc.touchbox.model.Information" fetch="select">
+            <column name="informationId" />
+        </many-to-one>
+        <property name="title" type="string">
+            <column name="title" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" />
+        </property>
+        <property name="link" type="string">
+            <column name="link" />
+        </property>
+        <property name="sequence" type="short">
+            <column name="sequence" not-null="true" />
+        </property>
+        <property name="status" type="byte">
+            <column name="status" not-null="true">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <set name="adminMessages" table="admin_message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="messageId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.AdminMessage" />
+        </set>
+        <set name="userMessages" table="user_message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="messageId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.UserMessage" />
+        </set>
+    </class>
+</hibernate-mapping>

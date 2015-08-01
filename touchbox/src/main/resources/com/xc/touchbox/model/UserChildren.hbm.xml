@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-7-4 14:54:30 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.UserChildren" table="user_children">
+        <id name="childrenId" type="string">
+            <column name="childrenId"/>
+            <generator class="assigned" />
+        </id>
+        <property name="userId" type="long">
+            <column name="userId" />
+        </property>
+        <property name="childBirthday" type="timestamp">
+            <column name="childBirthday" length="19" />
+        </property>
+        <property name="childName" type="string">
+            <column name="childName" />
+        </property>
+        <property name="schoolName" type="string">
+            <column name="schoolName"  />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

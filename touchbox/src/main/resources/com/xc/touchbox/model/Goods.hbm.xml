@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Goods" table="goods">
+        <id name="goodsId" type="string">
+            <column name="goodsId" />
+            <generator class="assigned" />
+        </id>
+        <property name="productId" type="long">
+            <column name="productId" not-null="true"/>
+        </property>
+        <property name="periodNum" type="int">
+            <column name="periodNum" not-null="true"/>
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="32" />
+        </property>
+        <property name="startTime" type="timestamp">
+            <column name="startTime"/>
+        </property>
+        <property name="endTime" type="timestamp">
+            <column name="endTime"/>
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true"/>
+        </property>
+        <property name="createTime" type="timestamp" update="false">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

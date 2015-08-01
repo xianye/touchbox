@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Refund" table="refund" catalog="touchbox">
+        <id name="refundId" type="java.lang.Integer">
+            <column name="refundId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="creatorId" />
+        </many-to-one>
+        <many-to-one name="userOrder" class="com.xc.touchbox.model.UserOrder" fetch="select">
+            <column name="orderId" />
+        </many-to-one>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="refundReason" type="string">
+            <column name="refundReason" />
+        </property>
+        <property name="refundWay" type="java.lang.Byte">
+            <column name="refundWay" />
+        </property>
+        <property name="userContactWay" type="string">
+            <column name="userContactWay" />
+        </property>
+        <property name="approvalAdminId" type="java.lang.Long">
+            <column name="approvalAdminId" />
+        </property>
+        <property name="refundFee" type="java.lang.Integer">
+            <column name="refundFee" />
+        </property>
+        <property name="memo" type="string">
+            <column name="memo" />
+        </property>
+        <property name="status" type="byte">
+            <column name="status" not-null="true">
+                <comment>
+                0-&#180;&#253;&#180;&#166;&#192;&#237;&#163;&#172;1-&#210;&#209;&#197;&#250;&#184;&#180;&#163;&#172;2-&#201;&#190;&#179;&#253;&#163;&#172;3-&#206;&#180;&#197;&#250;&#184;&#180;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="refundTime" type="timestamp">
+            <column name="refundTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

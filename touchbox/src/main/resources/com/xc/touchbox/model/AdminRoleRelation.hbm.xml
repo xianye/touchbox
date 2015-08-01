@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.AdminRoleRelation" table="admin_role_relation" catalog="touchbox">
+        <id name="relationId" type="java.lang.Long">
+            <column name="relationId" />
+            <generator class="identity" />
+        </id>
+        <property name="userId" type="long">
+            <column name="userId"/>
+        </property>
+        <property name="roleId" type="int">
+            <column name="roleId"/>
+        </property>
+        
+        <!-- 
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <many-to-one name="role" class="com.xc.touchbox.model.Role" fetch="select">
+            <column name="roleId" />
+        </many-to-one> -->
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

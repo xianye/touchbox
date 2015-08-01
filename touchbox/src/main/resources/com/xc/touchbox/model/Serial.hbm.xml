@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Serial" table="serial" catalog="touchbox">
+        <id name="serialId" type="string">
+            <column name="serialId" length="24" />
+            <generator class="assigned" />
+        </id>
+        <version name="version" type="string">
+            <column name="version" length="16" />
+        </version>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="channel" type="string">
+            <column name="channel" length="16" />
+        </property>
+        <property name="platform" type="string">
+            <column name="platform" length="16" />
+        </property>
+        <property name="softType" type="java.lang.Integer">
+            <column name="softType" />
+        </property>
+        <property name="deviceId" type="string">
+            <column name="deviceId" length="96" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="status" type="java.lang.Byte">
+            <column name="status">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="imei" type="string">
+            <column name="IMEI" length="200" />
+        </property>
+        <property name="pushEnabled" type="boolean">
+            <column name="pushEnabled" not-null="true" />
+        </property>
+        <set name="verifications" table="verification" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="serialId" length="24" not-null="true" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Verification" />
+        </set>
+    </class>
+</hibernate-mapping>

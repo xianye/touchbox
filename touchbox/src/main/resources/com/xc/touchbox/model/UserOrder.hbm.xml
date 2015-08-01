@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.UserOrder" table="user_order">
+        <id name="orderId" type="java.lang.Long">
+            <column name="orderId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="snapshotId" type="long">
+            <column name="snapshotId"/>
+        </property>
+        <property name="number" type="int">
+            <column name="number"/>
+        </property>
+        <property name="orderPeriod" type="int">
+            <column name="orderPeriod"/>
+        </property>
+        <property name="fee" type="float">
+            <column name="fee" />
+        </property>
+        <property name="freightFee" type="float">
+            <column name="freightFee" />
+        </property>
+        <property name="salesCode" type="string">
+            <column name="salesCode" length="64" />
+        </property>
+        <property name="discountFee" type="float">
+            <column name="discountFee" />
+        </property>
+        <property name="childName" type="string">
+            <column name="childName" length="64" />
+        </property>
+        <property name="childBirthday" type="timestamp">
+            <column name="childBirthday" length="19" />
+        </property>
+        <property name="schoolName" type="string">
+            <column name="schoolName" />
+        </property>
+       <property name="parentName" type="string">
+            <column name="parentName" length="64" />
+        </property>
+        <property name="parentMobile" type="string">
+            <column name="parentMobile" length="64" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" />
+        </property>
+        <property name="memo" type="string">
+            <column name="memo" />
+        </property>
+        <property name="startTime" type="timestamp">
+            <column name="startTime" length="19" />
+        </property>
+        <property name="endTime" type="timestamp">
+            <column name="endTime" length="19" />
+        </property>
+        <property name="giftClassroomPeriodNum" type="int">
+            <column name="giftClassroomPeriodNum"/>
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true">
+                <comment>
+                0-&#180;&#253;&#214;&#167;&#184;&#182;&#163;&#172;1-&#210;&#209;&#214;&#167;&#184;&#182;&#163;&#172;2-&#201;&#190;&#179;&#253;&#163;&#172;3-&#210;&#209;&#183;&#162;&#187;&#245;&#163;&#172;4-&#210;&#209;&#205;&#203;&#191;&#238;</comment>
+            </column>
+        </property> 
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="payTime" type="timestamp">
+            <column name="payTime" length="19" />
+        </property>
+		<property name="deliveryTime" type="string">
+            <column name="deliveryTime" />
+        </property>
+        <property name="refundTime" type="timestamp">
+            <column name="refundTime" length="19" />
+        </property>
+        <property name="closeTime" type="timestamp">
+            <column name="closeTime" length="19" />
+        </property>
+        <!-- 
+        <set name="refunds" table="refund" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="orderId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Refund" />
+        </set> -->
+    </class>
+</hibernate-mapping>

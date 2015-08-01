@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.ProductImage" table="product_image" catalog="touchbox">
+        <id name="imageId" type="java.lang.Integer">
+            <column name="image_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="product" class="com.xc.touchbox.model.Product" fetch="select">
+            <column name="productId" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="64" />
+        </property>
+        <property name="thumbnailUrl" type="string">
+            <column name="thumbnailUrl" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="imageUrl" />
+        </property>
+        <property name="sequence" type="short">
+            <column name="sequence" not-null="true" />
+        </property>
+        <property name="status" type="byte">
+            <column name="status" not-null="true">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

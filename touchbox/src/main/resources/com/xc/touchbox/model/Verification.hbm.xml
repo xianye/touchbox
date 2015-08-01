@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Verification" table="verification" catalog="touchbox">
+        <id name="verificationId" type="long">
+            <column name="verificationId" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="serial" class="com.xc.touchbox.model.Serial" fetch="select">
+            <column name="serialId" length="24" not-null="true" />
+        </many-to-one>
+        <property name="code" type="string">
+            <column name="code" length="4" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="16" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="status" type="java.lang.Byte">
+            <column name="status">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

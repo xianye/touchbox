@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.SalesCode" table="sales_code" catalog="touchbox">
+        <id name="salesCode" type="string">
+            <column name="salesCode" length="64" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="adminId" />
+        </many-to-one>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="status" type="byte">
+            <column name="status" not-null="true">
+                <comment>0-&#206;&#180;&#202;&#185;&#211;&#195;&#163;&#172;1-&#210;&#209;&#202;&#185;&#211;&#195;&#163;&#172;2-&#201;&#190;&#179;&#253;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

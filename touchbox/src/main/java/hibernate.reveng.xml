@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="touchbox" match-name="account"/>
+  <table-filter match-catalog="touchbox" match-name="admin"/>
+  <table-filter match-catalog="touchbox" match-name="admin_message"/>
+  <table-filter match-catalog="touchbox" match-name="admin_role_relation"/>
+  <table-filter match-catalog="touchbox" match-name="complaint"/>
+  <table-filter match-catalog="touchbox" match-name="complaint_reply"/>
+  <table-filter match-catalog="touchbox" match-name="feedback"/>
+  <table-filter match-catalog="touchbox" match-name="information"/>
+  <table-filter match-catalog="touchbox" match-name="information_cat"/>
+  <table-filter match-catalog="touchbox" match-name="lesson_plan"/>
+  <table-filter match-catalog="touchbox" match-name="notification_message"/>
+  <table-filter match-catalog="touchbox" match-name="product"/>
+  <table-filter match-catalog="touchbox" match-name="product_image"/>
+  <table-filter match-catalog="touchbox" match-name="refund"/>
+  <table-filter match-catalog="touchbox" match-name="resource"/>
+  <table-filter match-catalog="touchbox" match-name="role"/>
+  <table-filter match-catalog="touchbox" match-name="role_menu_authority"/>
+  <table-filter match-catalog="touchbox" match-name="salary_account"/>
+  <table-filter match-catalog="touchbox" match-name="sales_code"/>
+  <table-filter match-catalog="touchbox" match-name="serial"/>
+  <table-filter match-catalog="touchbox" match-name="thirdparty_oauth2_user"/>
+  <table-filter match-catalog="touchbox" match-name="thirdparty_platform"/>
+  <table-filter match-catalog="touchbox" match-name="thirdparty_user"/>
+  <table-filter match-catalog="touchbox" match-name="user"/>
+  <table-filter match-catalog="touchbox" match-name="user_collection"/>
+  <table-filter match-catalog="touchbox" match-name="user_lesson_plan"/>
+  <table-filter match-catalog="touchbox" match-name="user_message"/>
+  <table-filter match-catalog="touchbox" match-name="user_order"/>
+  <table-filter match-catalog="touchbox" match-name="verification"/>
+</hibernate-reverse-engineering>

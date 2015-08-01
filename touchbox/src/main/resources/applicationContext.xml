@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="${dj.main.url}"></property>
+		<property name="username" value="${dj.main.username}"></property>
+		<property name="password" value="${dj.main.password}"></property>
+		<property name="maxActive" value="150" />
+		<property name="maxIdle" value="35" />
+		<property name="maxWait" value="5000" />
+		<property name="validationQuery" value="select 1" />
+		<property name="timeBetweenEvictionRunsMillis" value="30" />
+		<property name="removeAbandoned" value="true" />
+		<property name="removeAbandonedTimeout" value="30" />
+		<property name="logAbandoned" value="true" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<prop key="hibernate.jdbc.batch_size">20</prop>
+				<prop key="hibernate.cache.provider_class">
+					org.hibernate.cache.EhCacheProvider
+    			</prop>
+				<prop key="hibernate.cache.use_query_cache">
+					false
+    			</prop>
+				<prop key="hibernate.cache.use_second_level_cache">
+					false
+    			</prop>
+			</props>
+		</property>
+		<property name="mappingResources" ref="mappingResources" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="mappingResources" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>com/xc/touchbox/model/City.hbm.xml</value>
+				<value>com/xc/touchbox/model/SystemParam.hbm.xml</value>
+				<value>com/xc/touchbox/model/Account.hbm.xml</value>
+				<value>com/xc/touchbox/model/Admin.hbm.xml</value>
+				<value>com/xc/touchbox/model/User.hbm.xml</value>
+				<value>com/xc/touchbox/model/UserChildren.hbm.xml</value>
+				<value>com/xc/touchbox/model/Resource.hbm.xml</value>
+				<value>com/xc/touchbox/model/Role.hbm.xml</value>
+				<value>com/xc/touchbox/model/AdminRoleRelation.hbm.xml</value>
+				<value>com/xc/touchbox/model/RoleResourceAuthority.hbm.xml</value>
+				
+				<value>com/xc/touchbox/model/Freight.hbm.xml</value>
+				<value>com/xc/touchbox/model/ProductCat.hbm.xml</value>
+				<value>com/xc/touchbox/model/Product.hbm.xml</value>
+				<value>com/xc/touchbox/model/ProductSnapshot.hbm.xml</value>
+				<value>com/xc/touchbox/model/Goods.hbm.xml</value>
+				<value>com/xc/touchbox/model/ProductImage.hbm.xml</value>
+				<value>com/xc/touchbox/model/UserOrder.hbm.xml</value>
+				<value>com/xc/touchbox/model/Classroom.hbm.xml</value>
+				<value>com/xc/touchbox/model/UserClassroomCollection.hbm.xml</value>
+				<value>com/xc/touchbox/model/UserClassroomOrder.hbm.xml</value>
+
+				<value>com/xc/touchbox/model/Information.hbm.xml</value>
+				<value>com/xc/touchbox/model/InformationCat.hbm.xml</value>
+
+				<value>com/xc/touchbox/model/Complaint.hbm.xml</value>
+				<value>com/xc/touchbox/model/ComplaintReply.hbm.xml</value>
+				<value>com/xc/touchbox/model/Feedback.hbm.xml</value>
+				<value>com/xc/touchbox/model/FeedbackReply.hbm.xml</value>
+
+			<!-- 
+				<value>com/xc/touchbox/model/AdminMessage.hbm.xml</value>
+
+				<value>com/xc/touchbox/model/NotificationMessage.hbm.xml</value>
+				<value>com/xc/touchbox/model/Refund.hbm.xml</value>
+				<value>com/xc/touchbox/model/SalaryAccount.hbm.xml</value>
+				<value>com/xc/touchbox/model/SalesCode.hbm.xml</value>
+				<value>com/xc/touchbox/model/Serial.hbm.xml</value>
+				<value>com/xc/touchbox/model/ThirdpartyOauth2User.hbm.xml</value>
+				<value>com/xc/touchbox/model/ThirdpartyPlatform.hbm.xml</value>
+				<value>com/xc/touchbox/model/ThirdpartyUser.hbm.xml</value>
+
+				<value>com/xc/touchbox/model/UserMessage.hbm.xml</value>
+				<value>com/xc/touchbox/model/Verification.hbm.xml</value> -->
+
+			</list>
+		</constructor-arg>
+	</bean>
+
+
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.xc.touchbox.service.*.*(..))"
+			advice-ref="defaultTxAdvice" />
+	</aop:config>
+	<tx:advice id="defaultTxAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="put*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="save*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="update*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="find*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="delete*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="do*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="import*" read-only="false" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+
+</beans>

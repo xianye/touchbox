@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.ThirdpartyUser" table="thirdparty_user" catalog="touchbox">
+        <id name="thirdpartyUserId" type="java.lang.Long">
+            <column name="thirdparty_user_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="thirdpartyPlatform" class="com.xc.touchbox.model.ThirdpartyPlatform" fetch="select">
+            <column name="thirdparty_id" />
+        </many-to-one>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="account" type="string">
+            <column name="account" length="64" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="64" />
+        </property>
+        <property name="whetherAuthorised" type="java.lang.Byte">
+            <column name="whether_authorised" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19" not-null="true" />
+        </property>
+        <property name="appkey" type="string">
+            <column name="appkey" length="128">
+                <comment>&#182;&#224;&#184;&#246;key&#202;&#185;&#211;&#195;&#182;&#186;&#186;&#197;&#161;&#176;,&#161;&#177;&#183;&#214;&#184;&#244;</comment>
+            </column>
+        </property>
+        <property name="secrect" type="string">
+            <column name="secrect" length="128" />
+        </property>
+        <property name="actualUserId" type="string">
+            <column name="actual_user_id" length="64" not-null="true">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;0-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="loginEnabled" type="boolean">
+            <column name="login_enabled" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

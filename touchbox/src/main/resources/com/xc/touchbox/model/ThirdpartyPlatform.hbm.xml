@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.ThirdpartyPlatform" table="thirdparty_platform" catalog="touchbox">
+        <id name="thirdpartyId" type="java.lang.Integer">
+            <column name="thirdparty_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="64" />
+        </property>
+        <property name="iconUrl" type="string">
+            <column name="icon_url" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="1024" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="create_time" length="19" not-null="true" />
+        </property>
+        <property name="appkey" type="string">
+            <column name="appkey" length="128">
+                <comment>&#182;&#224;&#184;&#246;key&#202;&#185;&#211;&#195;&#182;&#186;&#186;&#197;&#161;&#176;,&#161;&#177;&#183;&#214;&#184;&#244;</comment>
+            </column>
+        </property>
+        <property name="secrect" type="string">
+            <column name="secrect" length="128">
+                <comment>&#182;&#224;&#184;&#246;key&#202;&#185;&#211;&#195;&#182;&#186;&#186;&#197;&#161;&#176;,&#161;&#177;&#183;&#214;&#184;&#244;</comment>
+            </column>
+        </property>
+        <set name="thirdpartyUsers" table="thirdparty_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="thirdparty_id" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.ThirdpartyUser" />
+        </set>
+        <set name="thirdpartyOauth2Users" table="thirdparty_oauth2_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="thirdparty_id" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.ThirdpartyOauth2User" />
+        </set>
+    </class>
+</hibernate-mapping>

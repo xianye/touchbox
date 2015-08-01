@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Information" table="information" catalog="touchbox">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="informationCat" class="com.xc.touchbox.model.InformationCat" fetch="select">
+            <column name="catId" />
+        </many-to-one>
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="authorId" />
+        </many-to-one>
+        <property name="authorName" type="string">
+            <column name="authorName" />
+        </property>
+        <property name="type" type="int">
+            <column name="type" not-null="true"/>
+        </property>
+        <property name="title" type="string">
+            <column name="title" length="100" />
+        </property>
+        <property name="titleImageUrl" type="string">
+            <column name="titleImageUrl" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="65535" />
+        </property>
+        <property name="attachment" type="string">
+            <column name="attachment" length="65535" />
+        </property>
+        <property name="memo" type="string">
+            <column name="memo"/>
+        </property>
+        <property name="sequence" type="int">
+            <column name="sequence" not-null="true" />
+        </property>
+        <property name="viewNum" type="int">
+            <column name="viewNum" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true" />
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="editTime" type="timestamp">
+            <column name="editTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <!-- 暂时注释
+        <set name="notificationMessages" table="notification_message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="informationId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.NotificationMessage" />
+        </set> -->
+    </class>
+</hibernate-mapping>

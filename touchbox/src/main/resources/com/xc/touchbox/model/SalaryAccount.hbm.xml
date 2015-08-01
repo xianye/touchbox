@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.SalaryAccount" table="salary_account" catalog="touchbox">
+        <id name="salaryAccountId" type="java.lang.Integer">
+            <column name="salaryAccountId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="type" type="java.lang.Byte">
+            <column name="type">
+                <comment>1&#163;&#186;&#178;&#250;&#198;&#183;&#188;&#176;&#206;&#239;&#193;&#247; 2&#163;&#186;&#207;&#250;&#202;&#219;&#212;&#177;
+                3&#163;&#186;&#205;&#248;&#213;&#190;&#211;&#235; app&#202;&#185;&#211;&#195;
+                4&#163;&#186;&#198;&#228;&#203;&#251;--&#205;&#203;&#191;&#238;&#161;&#162;&#198;&#228;&#203;&#251;&#206;&#202;&#204;&#226;&#161;&#162;&#186;&#207;&#215;&#247;</comment>
+            </column>
+        </property>
+        <property name="content" type="string">
+            <column name="content" />
+        </property>
+        <property name="status" type="byte">
+            <column name="status" not-null="true">
+                <comment>0-&#180;&#253;&#187;&#216;&#184;&#180;&#163;&#172;1-&#210;&#209;&#187;&#216;&#184;&#180;&#163;&#172;2-&#201;&#190;&#179;&#253;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="startTime" type="timestamp">
+            <column name="startTime" length="19" />
+        </property>
+        <property name="endTime" type="timestamp">
+            <column name="endTime" length="19" />
+        </property>
+        <property name="chargeTime" type="timestamp">
+            <column name="chargeTime" length="19" />
+        </property>
+        <property name="arrivalTime" type="timestamp">
+            <column name="arrivalTime" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

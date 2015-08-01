@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Feedback" table="feedback">
+        <id name="id" type="java.lang.Integer">
+            <column name="feedbackId" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="handlerId" />
+        </many-to-one>
+        <property name="handlerName" type="string">
+            <column name="handlerName" />
+        </property>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="type" type="int">
+            <column name="type" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true"/>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="handleTime" type="timestamp">
+            <column name="handleTime" length="19" />
+        </property>
+        <set name="replies" table="feedback_reply" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="feedbackId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.FeedbackReply" />
+        </set>
+    </class>
+</hibernate-mapping>

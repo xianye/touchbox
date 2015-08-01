@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.InformationCat" table="information_cat" catalog="touchbox">
+        <id name="catId" type="java.lang.Integer">
+            <column name="catId" />
+            <generator class="identity" />
+        </id>
+        <property name="type" type="byte">
+            <column name="type" not-null="true">
+                <comment>
+                1-&#205;&#248;&#213;&#190;&#185;&#171;&#184;&#230;&#163;&#172;2-&#206;&#196;&#213;&#194;&#163;&#172;3-&#207;&#250;&#202;&#219;&#200;&#203;&#212;&#177;&#207;&#224;&#185;&#216;&#206;&#196;&#181;&#181;&#211;&#235;FAQ</comment>
+            </column>
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <property name="level" type="int">
+            <column name="level" not-null="true" />
+        </property>
+        <property name="sequence" type="int">
+            <column name="sequence" not-null="true" />
+        </property>
+        <property name="parentCatId" type="int">
+            <column name="parentCatId" not-null="true" />
+        </property>
+        <property name="memo" type="string">
+            <column name="memo" />
+        </property>
+        <property name="status" type="byte">
+            <column name="status" not-null="true">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <set name="informations" table="information" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="catId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Information" />
+        </set>
+    </class>
+</hibernate-mapping>

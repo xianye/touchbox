@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Admin" table="admin" >
+        <id name="userId" type="long">
+            <column name="userId" />
+            <generator class="foreign">
+                <param name="property">account</param>
+            </generator>
+        </id>
+        <one-to-one name="account" class="com.xc.touchbox.model.Account" constrained="true"></one-to-one>
+        <property name="username" type="string">
+            <column name="username" length="32" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="64" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="36" />
+        </property>
+        <property name="type" type="int">
+            <column name="type" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="48" />
+        </property>
+        <property name="sex" type="java.lang.Byte">
+            <column name="sex" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="birthday" length="10" />
+        </property>
+        <property name="identityCard" type="string">
+            <column name="identityCard" length="18" />
+        </property>
+        <property name="area" type="string">
+            <column name="area" length="48">
+                <comment>&#203;&#249;&#212;&#218;&#181;&#216;&#199;&#248;</comment>
+            </column>
+        </property>
+        <property name="phone" type="string">
+            <column name="phone" length="24" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" />
+        </property>
+        <property name="salesCut" type="java.lang.Float">
+            <column name="salesCut" precision="5">
+                <comment>&#189;&#246;&#207;&#250;&#202;&#219;&#212;&#177;&#180;&#230;&#212;&#218;&#180;&#203;&#202;&#253;&#190;&#221;</comment>
+            </column>
+        </property>
+        <property name="greenway" type="boolean">
+            <column name="greenway" not-null="true" />
+        </property>
+        <property name="creator" type="java.lang.Long">
+            <column name="creator" />
+        </property>
+        <property name="parentUserId" type="java.lang.Long">
+            <column name="parentUserId" />
+        </property>
+        <property name="loginTime" type="timestamp">
+            <column name="loginTime" length="19" />
+        </property>
+        <property name="loginIp" type="string">
+            <column name="loginIp" length="32" />
+        </property>
+        <property name="logoutTime" type="timestamp">
+            <column name="logoutTime" length="19" />
+        </property>
+        <property name="authorityAvailable" type="boolean">
+            <column name="authorityAvailable" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="memo" type="string">
+            <column name="memo" />
+        </property>
+
+        <!--  暂时屏蔽
+		<set name="roles" table="admin_role_relation" cascade="save-update" inverse="true" lazy="true" fetch="select">  
+ 			<key column="userId"></key>  
+   			<many-to-many class="com.xc.touchbox.model.Role" column="roleId"></many-to-many>  
+  		</set>  
+        <set name="adminRoleRelations" table="admin_role_relation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.AdminRoleRelation" />
+        </set>
+        <set name="complaints" table="complaint" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="handlerId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Complaint" />
+        </set>
+        <set name="lessonPlans" table="lesson_plan" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="adminId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.LessonPlan" />
+        </set>
+        <set name="salesCodes" table="sales_code" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="adminId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.SalesCode" />
+        </set>
+        <set name="adminMessages" table="admin_message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.AdminMessage" />
+        </set>
+        <set name="products" table="product" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="adminId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Product" />
+        </set>
+        <set name="feedbacks" table="feedback" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Feedback" />
+        </set>
+
+        <set name="informations" table="information" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="authorId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Information" />
+        </set>
+        <set name="salaryAccounts" table="salary_account" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.SalaryAccount" />
+        </set>
+        <set name="refunds" table="refund" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="creatorId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Refund" />
+        </set> -->
+    </class>
+</hibernate-mapping>

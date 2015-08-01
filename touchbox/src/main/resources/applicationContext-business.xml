@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 使用 annotation -->
+	<context:annotation-config />
+
+	<!-- 使用 annotation 自动注册bean,并检查@Controller, @Service, @Repository注解已被注入 -->
+	<context:component-scan base-package="com.xc.touchbox" />
+
+	<!-- 第三方短信接口服务 -->
+	<bean id="smsService" class="com.xc.touchbox.thirdparty.SmsServiceImpl">
+	</bean>
+	<!-- 第三方仓储接口服务 -->
+	<bean id="wareHousingService" class="com.xc.touchbox.thirdparty.WareHousingServiceImpl">
+	</bean>
+
+
+	<bean id="configService" class="com.xc.touchbox.service.ConfigServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="roleService" class="com.xc.touchbox.service.RoleServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userService" class="com.xc.touchbox.service.UserServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="productService" class="com.xc.touchbox.service.ProductServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="classroomService" class="com.xc.touchbox.service.ClassroomServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="informationService" class="com.xc.touchbox.service.InformationServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="feedbackService" class="com.xc.touchbox.service.FeedbackServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userOrderService" class="com.xc.touchbox.service.UserOrderServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userDeliveryService" class="com.xc.touchbox.service.UserDeliveryServiceImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+</beans>

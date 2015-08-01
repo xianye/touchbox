@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.Product" table="product">
+        <id name="productId" type="java.lang.Long">
+            <column name="productId" />
+            <generator class="identity" />
+        </id>
+        <property name="productCatId" type="int">
+            <column name="productCatId" />
+        </property>
+        <many-to-one name="admin" class="com.xc.touchbox.model.Admin" fetch="select">
+            <column name="adminId" />
+        </many-to-one>
+        <property name="adminName" type="string">
+            <column name="adminName" />
+        </property>
+        <property name="period" type="string">
+            <column name="period" not-null="true"/>
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="32" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" />
+        </property>
+        <property name="originalPrice" type="float">
+            <column name="originalPrice" />
+        </property>
+        <property name="price" type="float">
+            <column name="price" />
+        </property>
+        <property name="titleImageUrl" type="string">
+            <column name="titleImageUrl" />
+        </property>
+        <property name="bannerImageUrl" type="string">
+            <column name="bannerImageUrl" />
+        </property>
+        <property name="imageUrl" type="string">
+            <column name="imageUrl" />
+        </property>
+        <property name="deliveryWarehouse" type="string">
+            <column name="deliveryWarehouse" not-null="true" />
+        </property>
+        <property name="startTime" type="timestamp">
+            <column name="startTime" length="19" />
+        </property>
+        <property name="giftClassroomPeriodNum" type="int">
+            <column name="giftClassroomPeriodNum" not-null="true"/>
+        </property>
+        <property name="discountExisted" type="boolean">
+            <column name="discountExisted" not-null="true" />
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true">
+                <comment>
+                0-&#180;&#253;&#180;&#166;&#192;&#237;&#163;&#172;1-&#210;&#209;&#180;&#166;&#192;&#237;&#163;&#172;2-&#201;&#190;&#179;&#253;&#163;&#172;3-&#201;&#243;&#186;&#203;&#190;&#220;&#190;&#248;</comment>
+            </column>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <set name="productImages" table="product_image" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="productId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.ProductImage" />
+        </set>
+        <set name="userOrders" table="user_order" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="productId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.UserOrder" />
+        </set>
+    </class>
+</hibernate-mapping>

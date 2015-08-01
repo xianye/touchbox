@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.ThirdpartyOauth2User" table="thirdparty_oauth2_user" catalog="touchbox">
+        <id name="thirdpartyUserId" type="java.lang.Long">
+            <column name="thirdparty_user_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="thirdpartyPlatform" class="com.xc.touchbox.model.ThirdpartyPlatform" fetch="select">
+            <column name="thirdparty_id" />
+        </many-to-one>
+        <many-to-one name="user" class="com.xc.touchbox.model.User" fetch="select">
+            <column name="userId" />
+        </many-to-one>
+        <property name="accessToken" type="string">
+            <column name="access_token" length="64" />
+        </property>
+        <property name="expiresIn" type="java.lang.Long">
+            <column name="expires_in" />
+        </property>
+        <property name="status" type="java.lang.Boolean">
+            <column name="status">
+                <comment>1-&#211;&#208;&#208;&#167;&#163;&#172;2-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="authorizeTime" type="timestamp">
+            <column name="authorize_time" length="19" not-null="true" />
+        </property>
+        <property name="cancelTime" type="timestamp">
+            <column name="cancel_time" length="19" />
+        </property>
+        <property name="actualUserId" type="string">
+            <column name="actual_user_id" length="64" not-null="true">
+                <comment>&#181;&#218;&#200;&#253;&#183;&#189;&#207;&#181;&#205;&#179;&#206;&#168;&#210;&#187;ID</comment>
+            </column>
+        </property>
+        <property name="loginEnabled" type="boolean">
+            <column name="login_enabled" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

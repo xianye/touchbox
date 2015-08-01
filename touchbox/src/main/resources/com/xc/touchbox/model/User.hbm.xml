@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-5-23 23:22:04 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.xc.touchbox.model.User" table="user">
+        <id name="userId" type="long">
+            <column name="userId" />
+            <generator class="foreign">
+                <param name="property">account</param>
+            </generator>
+        </id>
+        <one-to-one name="account" class="com.xc.touchbox.model.Account" constrained="true"></one-to-one>
+        <property name="username" type="string">
+            <column name="username" length="32" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="64" />
+        </property>
+        <property name="mobile" type="string">
+            <column name="mobile" length="36" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="64" />
+        </property>
+        <property name="sex" type="java.lang.Byte">
+            <column name="sex" />
+        </property>
+        <property name="birthday" type="date">
+            <column name="birthday" length="10" />
+        </property>
+        <property name="address" type="string">
+            <column name="address"/>
+        </property>
+        <property name="createTime" type="timestamp">
+            <column name="createTime" length="19" />
+        </property>
+        <property name="loginTime" type="timestamp">
+            <column name="loginTime" length="19" />
+        </property>
+        <property name="loginIp" type="string">
+            <column name="loginIp" length="32" />
+        </property>
+        <property name="logoutTime" type="timestamp">
+            <column name="logoutTime" length="19" />
+        </property>
+        <property name="longitude" type="java.lang.Long">
+            <column name="longitude" precision="10" scale="0" />
+        </property>
+        <property name="latitude" type="java.lang.Long">
+            <column name="latitude" precision="10" scale="0" />
+        </property>
+        <property name="placeTime" type="timestamp">
+            <column name="placeTime" length="19" />
+        </property>
+        <property name="portraitUrl" type="string">
+            <column name="portraitUrl" />
+        </property>
+        <property name="portraitKey" type="int">
+            <column name="portraitKey" not-null="true">
+                <comment>&#180;&#211;1&#191;&#170;&#202;&#188;&#188;&#198;&#202;&#253;&#163;&#172;&#215;&#212;&#212;&#246;1</comment>
+            </column>
+        </property>
+        <property name="status" type="int">
+            <column name="status" not-null="true">
+                <comment>
+                1-&#212;&#218;&#207;&#223;&#163;&#172;2-&#210;&#254;&#201;&#237;&#163;&#168;&#182;&#212;&#196;&#176;&#201;&#250;&#200;&#203;&#210;&#254;&#201;&#237;&#163;&#169;&#163;&#172;3-&#192;&#235;&#207;&#223;&#163;&#172;4-&#182;&#212;&#203;&#249;&#211;&#208;&#200;&#203;&#210;&#254;&#201;&#237;</comment>
+            </column>
+        </property>
+        <property name="signature" type="string">
+            <column name="signature" length="128" />
+        </property>
+        <property name="integral" type="java.lang.Integer">
+            <column name="integral" />
+        </property>
+        <property name="updateTime" type="timestamp">
+            <column name="updateTime" length="19" />
+        </property>
+        <property name="freeze" type="boolean">
+            <column name="freeze" not-null="true">
+                <comment>0-&#211;&#208;&#208;&#167;&#163;&#172;1-&#206;&#222;&#208;&#167;</comment>
+            </column>
+        </property>
+        <property name="freezeDetail" type="string">
+            <column name="freezeDetail" />
+        </property>
+        <property name="loginFrequency" type="int">
+            <column name="loginFrequency" not-null="true" />
+        </property>
+        <property name="source" type="int">
+            <column name="source" not-null="true">
+                <comment>
+                0:&#215;&#212;&#211;&#208;,1:&#194;&#219;&#204;&#179;,2-10:&#177;&#184;&#211;&#195;,11-40:'10+&#181;&#218;&#200;&#253;&#183;&#189;&#198;&#189;&#204;&#168;ID'</comment>
+            </column>
+        </property>
+        <property name="vipLevel" type="int">
+            <column name="vipLevel" not-null="true">
+                <comment>0-&#183;&#199;&#187;&#225;&#212;&#177;&#163;&#172;1-&#187;&#225;&#212;&#177;</comment>
+            </column>
+        </property>
+        <!--  暂时屏蔽
+        <set name="refunds" table="refund" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Refund" />
+        </set>
+        <set name="serials" table="serial" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Serial" />
+        </set>
+        <set name="thirdpartyUsers" table="thirdparty_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.ThirdpartyUser" />
+        </set>
+        <set name="userLessonPlans" table="user_lesson_plan" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.UserLessonPlan" />
+        </set>
+        <set name="thirdpartyOauth2Users" table="thirdparty_oauth2_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.ThirdpartyOauth2User" />
+        </set>
+        <set name="salesCodes" table="sales_code" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.SalesCode" />
+        </set>
+        <set name="userCollections" table="user_collection" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.UserCollection" />
+        </set>
+        <set name="userOrders" table="user_order" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.UserOrder" />
+        </set>
+        <set name="complaints" table="complaint" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.Complaint" />
+        </set>
+        <set name="userMessages" table="user_message" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userId" />
+            </key>
+            <one-to-many class="com.xc.touchbox.model.UserMessage" />
+        </set>
+         -->
+    </class>
+</hibernate-mapping>
