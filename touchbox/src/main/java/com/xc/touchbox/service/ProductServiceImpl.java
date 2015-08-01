@@ -25,7 +25,7 @@ public class ProductServiceImpl extends CDAOTemplateImpl implements
 			.getLogger(ProductServiceImpl.class);
 
 	@Override
-	public PaginationSupport<Product> findProduct(String keyword,
+	public PaginationSupport<Product> pageQuery(String keyword,
 			String statusInStr, int page, int pagesize) {
 		StringBuilder hql = new StringBuilder(
 				"select a from Product a where a.status!=2 ");
@@ -44,7 +44,7 @@ public class ProductServiceImpl extends CDAOTemplateImpl implements
 	}
 
 	@Override
-	public void saveProduct(Product obj) {
+	public void save(Product obj) {
 		Date date = new Date();
 
 		try {
@@ -91,6 +91,16 @@ public class ProductServiceImpl extends CDAOTemplateImpl implements
 		return getHibernateTemplate()
 				.find("from Goods where status!=2 and productId=? order by periodNum asc",
 						productId);
+	}
+
+	@Override
+	public List<Product> findMajor() {
+		return getHibernateTemplate().find("from Product a where a.status=1 and a.productCatId in (1,2,3) order by a.productCatId asc");
+	}
+
+	@Override
+	public List<Product> findByCat(String catIdInstr) {
+		return getHibernateTemplate().find("from Product a where a.status=1 and a.productCatId in ("+catIdInstr+") order by a.productId desc");
 	}
 
 }

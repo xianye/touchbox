@@ -7,7 +7,7 @@ import com.xc.touchbox.model.Classroom;
 public interface ClassroomService extends CDAOTemplate{
 	
 	/**
-	 * 分页查询产品列表数据
+	 * 分页查询列表数据
 	 * 
 	 * @param keyword 查询关键字
 	 * @param statusInStr 状态字符串
@@ -15,14 +15,14 @@ public interface ClassroomService extends CDAOTemplate{
 	 * @param pagesize 一页多少条
 	 * @return
 	 */
-	public PaginationSupport<Classroom> findClassroom(String keyword,String statusInStr,int page, int pagesize);
+	public PaginationSupport<Classroom> pageQuery(String keyword,String statusInStr,int page, int pagesize);
 	
 	/**
-	 * 保存产品数据
+	 * 保存数据
 	 * 
 	 * @param obj 产品对象
 	 */
-	public void saveClassroom(Classroom obj);
+	public void save(Classroom obj);
 	
 	/**
 	 * 是否存在当期视频
@@ -30,6 +30,26 @@ public interface ClassroomService extends CDAOTemplate{
 	 * @param obj
 	 * @return
 	 */
-	public boolean isExistClassroom(Classroom obj);
+	public boolean isExist(Classroom obj);
 	
+	/**
+	 * 分页查询订购列表数据
+	 * 
+	 * @param userId 用户ID
+	 * @param page 页码
+	 * @param pagesize 一页多少条
+	 * @return
+	 */
+	public PaginationSupport<Classroom> pageQueryOrder(long userId,int page, int pagesize);
+	
+	/**
+	 * 分页查询收藏列表数据
+	 * 
+	 * @param userId 用户ID
+	 * @param page 页码
+	 * @param pagesize 一页多少条
+	 * @return
+	 */
+	public PaginationSupport<Classroom> pageQueryCollection(long userId,int page, int pagesize);
+
 }

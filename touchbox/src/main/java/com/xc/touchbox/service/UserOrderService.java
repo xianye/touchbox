@@ -14,11 +14,12 @@ public interface UserOrderService extends CDAOTemplate{
 	 * @param statusInStr 状态字符串
 	 * @param startTime 开始时间
 	 * @param endTime 截止时间
+	 * @param userId TODO
 	 * @param page 页码
 	 * @param pagesize 一页多少条
 	 * @return
 	 */
-	public PaginationSupport<UserOrder> findOrder(String keyword,String statusInStr,String startTime, String endTime, int page, int pagesize);
+	public PaginationSupport<UserOrder> findOrder(String keyword,String statusInStr,String startTime, String endTime, Long userId, int page, int pagesize);
 	
 	/**
 	 * 保存订单数据

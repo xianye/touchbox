@@ -18,14 +18,14 @@ public interface ProductService extends CDAOTemplate{
 	 * @param pagesize 一页多少条
 	 * @return
 	 */
-	public PaginationSupport<Product> findProduct(String keyword,String statusInStr,int page, int pagesize);
+	public PaginationSupport<Product> pageQuery(String keyword,String statusInStr,int page, int pagesize);
 	
 	/**
 	 * 保存产品数据
 	 * 
 	 * @param obj 产品对象
 	 */
-	public void saveProduct(Product obj);
+	public void save(Product obj);
 	
 	/**
 	 * 获取指定产品的商品列表
@@ -34,4 +34,20 @@ public interface ProductService extends CDAOTemplate{
 	 * @return
 	 */
 	public List<Goods> getGoodsList(long productId);
+	
+	/**
+	 * 查询主要的盒子产品，用于商城首页显示
+	 * 各主要分类一个数据
+	 * 
+	 * @return
+	 */
+	public List<Product> findMajor();
+	
+	/**
+	 * 查询指定分类的盒子产品数据
+	 * 
+	 * @param catIdInstr 分类Id，多个使用“,”分隔
+	 * @return
+	 */
+	public List<Product> findByCat(String catIdInstr);
 }

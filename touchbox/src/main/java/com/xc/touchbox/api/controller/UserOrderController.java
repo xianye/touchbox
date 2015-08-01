@@ -64,7 +64,7 @@ public class UserOrderController extends BaseAction {
 			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
 			if (authMD5Key) {// 秘钥鉴权成功
 				PaginationSupport<UserOrder> ps = userOrderService.findOrder(
-						keyword, null, startTime, endTime, page, pagesize);
+						keyword, null, startTime, endTime, userId, page, pagesize);
 
 				if (ps != null) {
 					paginationResp = new PaginationResponse(ps,

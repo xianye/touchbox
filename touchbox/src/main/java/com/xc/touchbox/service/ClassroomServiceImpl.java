@@ -25,7 +25,7 @@ public class ClassroomServiceImpl extends CDAOTemplateImpl implements
 			.getLogger(ClassroomServiceImpl.class);
 
 	@Override
-	public PaginationSupport<Classroom> findClassroom(String keyword,
+	public PaginationSupport<Classroom> pageQuery(String keyword,
 			String statusInStr, int page, int pagesize) {
 		StringBuilder hql = new StringBuilder(
 				"from Classroom a,Product b where a.status!=2 and b.status!=2 and a.productId=b.productId ");
@@ -56,7 +56,7 @@ public class ClassroomServiceImpl extends CDAOTemplateImpl implements
 	}
 
 	@Override
-	public void saveClassroom(Classroom obj) {
+	public void save(Classroom obj) {
 		Date date = new Date();
 
 		try {
@@ -78,12 +78,87 @@ public class ClassroomServiceImpl extends CDAOTemplateImpl implements
 	}
 
 	@Override
-	public boolean isExistClassroom(Classroom obj) {
+	public boolean isExist(Classroom obj) {
 		Long classroomId = (Long) getHQLUnique(
 				"select classroomId from Classroom where status!=2 and productId=? and periodNum=? ",
 				new Object[] { obj.getProductId(), obj.getPeriodNum() });
 
 		return classroomId != null && classroomId > 0;
+	}
+
+	@Override
+	public PaginationSupport<Classroom> pageQueryOrder(long userId, int page,
+			int pagesize) {
+		List<Long> classroomIds = null;
+		if (userId > 0) {
+			classroomIds = getHibernateTemplate()
+					.find("select classroomId from UserClassroomOrder where userId=?",
+							userId);
+		}
+
+		StringBuilder hql = new StringBuilder(
+				"select a,b from Classroom a,Product b where a.status=1 and b.status!=2 and a.productId=b.productId ");
+
+		List params = new ArrayList();
+		if (CollectionUtils.isNotEmpty(classroomIds)) {
+			hql.append("and (a.classroomId in ("
+					+ StringUtils.join(classroomIds, ",")
+					+ ") or a.free=true) ");
+		} else {
+			hql.append("and a.free=true ");
+		}
+
+		hql.append("order by a.classroomId desc");
+		
+		int firstResults = (page - 1) * pagesize;
+		PaginationSupport ps = getHQLPagination(hql.toString(), params,
+				firstResults, pagesize);
+
+		if (ps != null && CollectionUtils.isNotEmpty(ps.getItems())) {// 获取产品信息并赋值
+			List<Classroom> items = new ArrayList<Classroom>();
+			for (Object[] o : (List<Object[]>) ps.getItems()) {
+				Classroom a = (Classroom) o[0];
+				a.setProduct((Product) o[1]);
+				items.add(a);
+			}
+			ps.setItems(items);
+		}
+		return ps;
+	}
+
+	@Override
+	public PaginationSupport<Classroom> pageQueryCollection(long userId,
+			int page, int pagesize) {
+		List<Long> classroomIds = getHibernateTemplate()
+				.find("select classroomId from UserClassroomCollection where userId=?",
+						userId);
+		if (CollectionUtils.isNotEmpty(classroomIds)) {
+
+			StringBuilder hql = new StringBuilder(
+					"select a,b from Classroom a,Product b where a.status=1 and b.status!=2 and a.productId=b.productId ");
+
+			List params = new ArrayList();
+			hql.append("and a.classroomId in ("
+					+ StringUtils.join(classroomIds, ",") + ") ");
+			
+			hql.append("order by a.classroomId desc");
+
+			int firstResults = (page - 1) * pagesize;
+			PaginationSupport ps = getHQLPagination(hql.toString(), params,
+					firstResults, pagesize);
+
+			if (ps != null && CollectionUtils.isNotEmpty(ps.getItems())) {// 获取产品信息并赋值
+				List<Classroom> items = new ArrayList<Classroom>();
+				for (Object[] o : (List<Object[]>) ps.getItems()) {
+					Classroom a = (Classroom) o[0];
+					a.setProduct((Product) o[1]);
+					items.add(a);
+				}
+				ps.setItems(items);
+			}
+			return ps;
+		}
+		return null;
 	}
 
 }

@@ -22,7 +22,6 @@ import com.xc.touchbox.controller.BaseAction;
 import com.xc.touchbox.model.Admin;
 import com.xc.touchbox.model.Classroom;
 import com.xc.touchbox.model.ISysParam;
-import com.xc.touchbox.model.Product;
 import com.xc.touchbox.model.view.ClassroomView;
 import com.xc.touchbox.model.view.GetDataResponse;
 import com.xc.touchbox.model.view.PaginationResponse;
@@ -42,6 +41,7 @@ public class ClassroomController extends BaseAction {
 	private ClassroomService classroomService;
 
 	private Classroom instance;// 输入Classroom对象数据
+	private String statusInstr;// 状态条件，多个使用半角逗号“,”分隔
 
 	/**
 	 * 查询角色列表
@@ -61,8 +61,8 @@ public class ClassroomController extends BaseAction {
 
 			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
 			if (authMD5Key) {// 秘钥鉴权成功
-				PaginationSupport<Classroom> ps = classroomService
-						.findClassroom(keyword, null, page, pagesize);
+				PaginationSupport<Classroom> ps = classroomService.pageQuery(
+						keyword, statusInstr, page, pagesize);
 
 				if (ps != null) {
 					paginationResp = new PaginationResponse(ps,
@@ -154,10 +154,10 @@ public class ClassroomController extends BaseAction {
 				}
 				instance.setAdmin(admin);
 
-				if (classroomService.isExistClassroom(instance)) {// 存在相同期数视频
+				if (classroomService.isExist(instance)) {// 存在相同期数视频
 					errorCode = ISysParam.API_RESPONSE_ERRORCODE_CLASSROOM_EXIST_SAMEPERIODNUM;
 				} else {
-					classroomService.saveClassroom(instance);
+					classroomService.save(instance);
 					return SUCCESS;
 				}
 			} else {
@@ -227,12 +227,100 @@ public class ClassroomController extends BaseAction {
 
 	}
 
+	/**
+	 * 查询订购列表（包括免费开放的视频）
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@Action(value = "findOrder", results = { @Result(name = "success", type = "json", params = {
+			"root", "paginationResp", "excludeNullProperties", "true" }) })
+	public String findOrder() throws Exception {
+		int errorCode = 0;
+		try {
+			boolean authMD5Key = true;
+
+			StringBuilder authkeyStr = new StringBuilder();
+			authkeyStr.append("c=").append(c);
+
+			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
+			if (authMD5Key) {// 秘钥鉴权成功
+				PaginationSupport<Classroom> ps = classroomService
+						.pageQueryOrder(userId, page, pagesize);
+
+				if (ps != null) {
+					paginationResp = new PaginationResponse(ps,
+							ClassroomView.class);
+					return SUCCESS;
+				} else {
+					errorCode = ISysParam.API_RESPONSE_ERRORCODE_FINDDATA_NULL;
+				}
+			} else {
+				errorCode = ISysParam.API_RESPONSE_ERRORCODE_AUTHMD5KEY_FAIL;
+			}
+		} catch (Exception e) {
+			SimpleUtils.log(e, log);
+			errorCode = ISysParam.API_RESPONSE_ERRORCODE_EXISTEXCEPTION;
+			baseResp.setErrorMsg(e.toString());
+		}
+		baseResp.setErrorCode(errorCode);
+		return ERROR;
+	}
+
+	/**
+	 * 查询收藏列表
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@Action(value = "findCollection", results = { @Result(name = "success", type = "json", params = {
+			"root", "paginationResp", "excludeNullProperties", "true" }) })
+	public String findCollection() throws Exception {
+		int errorCode = 0;
+		try {
+			boolean authMD5Key = true;
+
+			StringBuilder authkeyStr = new StringBuilder();
+			authkeyStr.append("c=").append(c);
+
+			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
+			if (authMD5Key) {// 秘钥鉴权成功
+				PaginationSupport<Classroom> ps = classroomService
+						.pageQueryCollection(userId, page, pagesize);
+
+				if (ps != null) {
+					paginationResp = new PaginationResponse(ps,
+							ClassroomView.class);
+					return SUCCESS;
+				} else {
+					errorCode = ISysParam.API_RESPONSE_ERRORCODE_FINDDATA_NULL;
+				}
+			} else {
+				errorCode = ISysParam.API_RESPONSE_ERRORCODE_AUTHMD5KEY_FAIL;
+			}
+		} catch (Exception e) {
+			SimpleUtils.log(e, log);
+			errorCode = ISysParam.API_RESPONSE_ERRORCODE_EXISTEXCEPTION;
+			baseResp.setErrorMsg(e.toString());
+		}
+		baseResp.setErrorCode(errorCode);
+		return ERROR;
+	}
+
 	public Classroom getInstance() {
 		return instance;
 	}
 
 	public void setInstance(Classroom instance) {
 		this.instance = instance;
+	}
+
+	public String getStatusInstr() {
+		return statusInstr;
+	}
+
+	public void setStatusInstr(String statusInstr) {
+		this.statusInstr = statusInstr;
 	}
 
 }

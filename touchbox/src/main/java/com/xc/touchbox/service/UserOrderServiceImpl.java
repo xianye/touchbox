@@ -26,8 +26,8 @@ public class UserOrderServiceImpl extends CDAOTemplateImpl implements
 
 	@Override
 	public PaginationSupport<UserOrder> findOrder(String keyword,
-			String statusInStr, String startTime, String endTime, int page,
-			int pagesize) {
+			String statusInStr, String startTime, String endTime, Long userId,
+			int page, int pagesize) {
 		StringBuilder hql = new StringBuilder(
 				"select a from UserOrder a where a.status!=2 ");
 
@@ -47,6 +47,11 @@ public class UserOrderServiceImpl extends CDAOTemplateImpl implements
 		if (StringUtils.isNotEmpty(endTime)) {
 			hql.append("and a.createTime<= ? ");
 			params.add(endTime + " 23:59:59");
+		}
+		
+		if (userId != null && userId > 0) {// 查询指定用户的订单
+			hql.append("and a.user.userId=? ");
+			params.add(userId);
 		}
 
 		int firstResults = (page - 1) * pagesize;
@@ -69,23 +74,24 @@ public class UserOrderServiceImpl extends CDAOTemplateImpl implements
 				dbObj.setUpdateTime(date);
 				getHibernateTemplate().update(dbObj);
 			}
-			
-			if(StringUtils.isNotEmpty(obj.getChildName())){// 保存小朋友信息
+
+			if (StringUtils.isNotEmpty(obj.getChildName())) {// 保存小朋友信息
 				UserChildren a = new UserChildren();
 				a.setUserId(obj.getUser().getUserId());
 				a.setChildName(obj.getChildName());
 				a.generateChildrenId();
-				
-				UserChildren b = getHibernateTemplate().get(UserChildren.class, a.getChildrenId());
-				if(b!=null){
-					if(obj.getChildBirthday()!=null){
+
+				UserChildren b = getHibernateTemplate().get(UserChildren.class,
+						a.getChildrenId());
+				if (b != null) {
+					if (obj.getChildBirthday() != null) {
 						b.setChildBirthday(obj.getChildBirthday());
 					}
-					if(StringUtils.isNotEmpty(obj.getSchoolName())){
+					if (StringUtils.isNotEmpty(obj.getSchoolName())) {
 						b.setSchoolName(obj.getSchoolName());
 					}
 					getHibernateTemplate().update(b);
-				}else{
+				} else {
 					a.setCreateTime(date);
 					getHibernateTemplate().save(a);
 				}
@@ -110,7 +116,7 @@ public class UserOrderServiceImpl extends CDAOTemplateImpl implements
 			hql.append("and a.cityName like ? ");
 			params.add("%" + keyword + "%");
 		}
-		
+
 		int firstResults = (page - 1) * pagesize;
 		return getHQLPagination(hql.toString(), params, firstResults, pagesize);
 	}

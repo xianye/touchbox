@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
@@ -24,6 +25,7 @@ import com.xc.touchbox.model.Goods;
 import com.xc.touchbox.model.ISysParam;
 import com.xc.touchbox.model.Product;
 import com.xc.touchbox.model.view.GetDataResponse;
+import com.xc.touchbox.model.view.ListResponse;
 import com.xc.touchbox.model.view.PaginationResponse;
 import com.xc.touchbox.model.view.ProductView;
 import com.xc.touchbox.service.ProductService;
@@ -60,7 +62,7 @@ public class ProductController extends BaseAction {
 
 			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
 			if (authMD5Key) {// 秘钥鉴权成功
-				PaginationSupport<Product> ps = productService.findProduct(
+				PaginationSupport<Product> ps = productService.pageQuery(
 						keyword, null, page, pagesize);
 
 				if (ps != null) {
@@ -155,7 +157,7 @@ public class ProductController extends BaseAction {
 					admin.setUserId(userId);
 				}
 				instance.setAdmin(admin);
-				productService.saveProduct(instance);
+				productService.save(instance);
 
 				return SUCCESS;
 
@@ -225,7 +227,84 @@ public class ProductController extends BaseAction {
 		return ERROR;
 
 	}
+	
+	/**
+	 * 查询主要产品列表
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@Action(value = "findMajor", results = { @Result(name = "success", type = "json", params = {
+			"root", "listResp", "excludeNullProperties", "true" }) })
+	public String findMajor() throws Exception {
+		int errorCode = 0;
+		try {
+			boolean authMD5Key = true;
 
+			StringBuilder authkeyStr = new StringBuilder();
+			authkeyStr.append("c=").append(c);
+
+			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
+			if (authMD5Key) {// 秘钥鉴权成功
+				List<Product> list = productService.findMajor();
+				if (CollectionUtils.isNotEmpty(list)) {
+					listResp = new ListResponse(list,
+							ProductView.class);
+					return SUCCESS;
+				} else {
+					errorCode = ISysParam.API_RESPONSE_ERRORCODE_FINDDATA_NULL;
+				}
+			} else {
+				errorCode = ISysParam.API_RESPONSE_ERRORCODE_AUTHMD5KEY_FAIL;
+			}
+		} catch (Exception e) {
+			SimpleUtils.log(e, log);
+			errorCode = ISysParam.API_RESPONSE_ERRORCODE_EXISTEXCEPTION;
+			baseResp.setErrorMsg(e.toString());
+		}
+		baseResp.setErrorCode(errorCode);
+		return ERROR;
+	}
+
+
+	/**
+	 * 查询主题产品列表
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@Action(value = "findSubject", results = { @Result(name = "success", type = "json", params = {
+			"root", "listResp", "excludeNullProperties", "true" }) })
+	public String findSubject() throws Exception {
+		int errorCode = 0;
+		try {
+			boolean authMD5Key = true;
+
+			StringBuilder authkeyStr = new StringBuilder();
+			authkeyStr.append("c=").append(c);
+
+			authMD5Key = this.checkAuthMD5Key(authkeyStr.toString());
+			if (authMD5Key) {// 秘钥鉴权成功
+				List<Product> list = productService.findByCat("4");
+				if (CollectionUtils.isNotEmpty(list)) {
+					listResp = new ListResponse(list,
+							ProductView.class);
+					return SUCCESS;
+				} else {
+					errorCode = ISysParam.API_RESPONSE_ERRORCODE_FINDDATA_NULL;
+				}
+			} else {
+				errorCode = ISysParam.API_RESPONSE_ERRORCODE_AUTHMD5KEY_FAIL;
+			}
+		} catch (Exception e) {
+			SimpleUtils.log(e, log);
+			errorCode = ISysParam.API_RESPONSE_ERRORCODE_EXISTEXCEPTION;
+			baseResp.setErrorMsg(e.toString());
+		}
+		baseResp.setErrorCode(errorCode);
+		return ERROR;
+	}
+	
 	public Product getInstance() {
 		return instance;
 	}
