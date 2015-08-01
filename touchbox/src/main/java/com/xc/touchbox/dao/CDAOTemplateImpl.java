@@ -1,13 +1,16 @@
 package com.xc.touchbox.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.TreeMap;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.xc.gospel.core.db.hibernate.GenericHibernateDAO;
-import com.xc.gospel.core.util.SimpleUtils;
-import com.xc.touchbox.model.ISysParam;
+import com.xc.touchbox.model.Goods;
+import com.xc.touchbox.model.ProductSnapshot;
 import com.xc.touchbox.model.Role;
 import com.xc.touchbox.model.SystemParam;
 
@@ -81,4 +84,27 @@ public class CDAOTemplateImpl extends GenericHibernateDAO implements
 		return getHibernateTemplate().find(hql.toString());
 	}
 
+	public ProductSnapshot getProductSnapshot(Map<Long,ProductSnapshot> mapData,Long snapshotId){
+		if(mapData!=null&&mapData.containsKey(snapshotId)){
+			return mapData.get(snapshotId);
+		}
+		ProductSnapshot a = getHibernateTemplate().get(ProductSnapshot.class, snapshotId);
+		if(mapData!=null)mapData.put(snapshotId, a);
+		return a;
+	}
+	
+	public Map<Integer,Goods> getGoodsMap(Map<Long,Map<Integer,Goods>> mapData,Long productId){
+		if(mapData!=null&&mapData.containsKey(productId)){
+			return mapData.get(productId);
+		}
+		Map<Integer,Goods> b = new TreeMap<Integer,Goods>();
+		List<Goods> list = getHibernateTemplate().find("from Goods where status!=2 and productId=? order by periodNum",productId);
+		if(CollectionUtils.isNotEmpty(list)){
+			for(Goods o:list){
+				b.put(o.getPeriodNum(), o);
+			}
+			if(mapData!=null)mapData.put(productId, b);
+		}
+		return b;
+	}
 }

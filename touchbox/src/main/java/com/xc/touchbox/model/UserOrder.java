@@ -31,6 +31,7 @@ public class UserOrder implements java.io.Serializable {
 	private Date endTime;
 	private int giftClassroomPeriodNum;
 	private int deliveredPeriodNum;
+	private Date deliveredTime;
 	private int status;
 	private Date createTime;
 	private Date updateTime;
@@ -203,6 +204,14 @@ public class UserOrder implements java.io.Serializable {
 
 	public void setDeliveredPeriodNum(int deliveredPeriodNum) {
 		this.deliveredPeriodNum = deliveredPeriodNum;
+	}
+
+	public Date getDeliveredTime() {
+		return deliveredTime;
+	}
+
+	public void setDeliveredTime(Date deliveredTime) {
+		this.deliveredTime = deliveredTime;
 	}
 
 	public int getStatus() {

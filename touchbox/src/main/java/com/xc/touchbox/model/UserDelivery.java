@@ -139,6 +139,47 @@ public class UserDelivery implements java.io.Serializable {
 		this.address = address;
 	}
 
+	/**
+	 * 解析地址并生成省市信息
+	 */
+	public void parseAddress() {
+		if (address != null) {
+			int offset = address.indexOf("省"), offset1 = -1;
+			if (offset >= 2 && offset <= 4) {
+				setState(address.substring(0, offset + 1));
+			} else {
+				offset = address.indexOf("自治区");
+				if (offset >= 3 && offset <= 5) {
+					setState(address.substring(0, offset + 3));
+				} else {
+					offset = address.indexOf("市");// 直辖市
+					if (offset == 2) {
+						String city = address.substring(0, offset + 1);
+						setState(city);
+						setCity(city);
+					}
+				}
+			}
+			if (offset != -1 && getCity() == null) {
+				offset1 = address.indexOf("自治州", offset);
+				if (offset1 != -1) {
+					setCity(address.substring(offset + 1, offset1 + 3));
+				}else{
+					offset1 = address.indexOf("地区", offset);
+					if (offset1 != -1) {
+						setCity(address.substring(offset + 1, offset1 + 2));
+					}else{
+						offset1 = address.indexOf("市", offset);
+						if (offset1 != -1) {
+							setCity(address.substring(offset + 1, offset1 + 1));
+						}
+					}
+				}
+			}
+
+		}
+	}
+
 	public String getGoodsId() {
 		return goodsId;
 	}
@@ -241,7 +282,7 @@ public class UserDelivery implements java.io.Serializable {
 		a.append("<ItemCount>").append(this.getItemCount())
 				.append("</ItemCount>");
 		a.append("</Item></Items></ShipmentRequest>");
-		
+
 		return a.toString();
 	}
 }

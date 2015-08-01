@@ -62,6 +62,12 @@
         <property name="giftClassroomPeriodNum" type="int">
             <column name="giftClassroomPeriodNum"/>
         </property>
+        <property name="deliveredPeriodNum" type="int">
+            <column name="deliveredPeriodNum"/>
+        </property>
+        <property name="deliveredTime" type="timestamp">
+            <column name="deliveredTime" length="19" />
+        </property>
         <property name="status" type="int">
             <column name="status" not-null="true">
                 <comment>
