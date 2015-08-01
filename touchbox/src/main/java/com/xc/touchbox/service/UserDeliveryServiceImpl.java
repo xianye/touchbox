@@ -72,4 +72,16 @@ public class UserDeliveryServiceImpl extends CDAOTemplateImpl implements UserDel
 
 	}
 
+	@Override
+	public void doBuildDeliveries(Date endTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void doSendDeliveries() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

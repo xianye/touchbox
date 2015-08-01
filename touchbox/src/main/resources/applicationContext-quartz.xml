@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">	
+	
+	<!-- 要调用的工作类 -->
+	<bean id="allQuartzJob" class="com.xc.touchbox.quartz.AllQuartzJob">
+		<property name="userDeliveryService" ref="userDeliveryService" />
+	</bean>
+	
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="buildJobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="allQuartzJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>buildDeliveries</value>
+		</property>
+	</bean>
+	<bean id="buildSimplerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="buildJobtask" />
+		<!-- 设置延迟工作的第一次执行,单位毫秒 -->
+		<property name="startDelay" value="10000" />
+		<!-- 设置调度任务频度,单位毫秒 -->
+		<property name="repeatInterval" value="1000" />
+	</bean>
+
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="clearPushJobtask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="allQuartzJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>clearPush</value>
+		</property>
+	</bean>
+	<bean id="clearPushSimplerTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="clearPushJobtask" />
+		<!-- 设置延迟工作的第一次执行,单位毫秒 -->
+		<property name="startDelay" value="10000" />
+		<!-- 设置调度任务频度,单位毫秒 -->
+		<property name="repeatInterval" value="1000" />
+	</bean>
+	
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="sendJobtask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="allQuartzJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>sendDeliveries</value>
+		</property>
+	</bean>
+	<bean id="sendTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail" ref="sendJobtask" />
+		<!-- 设置延迟工作的第一次执行,单位毫秒 -->
+		<property name="startDelay" value="10000" />
+		<!-- 设置调度任务频度,单位毫秒 -->
+		<property name="repeatInterval" value="1000" />
+	</bean>
+
+
+	<bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<!-- 接受一组触发器,可以接受一个列表 -->
+		<property name="triggers">
+			<list>
+				<ref bean="buildSimplerTrigger"/>
+				<ref bean="sendTrigger"/>
+				<!--  
+				<ref bean="clearPushSimplerTrigger"/>-->
+			</list>
+		</property>
+	</bean>
+</beans>

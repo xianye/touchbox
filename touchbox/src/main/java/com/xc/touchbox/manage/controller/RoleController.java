@@ -1,4 +1,4 @@
-package com.xc.touchbox.controller;
+package com.xc.touchbox.manage.controller;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -7,6 +7,7 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
 import com.opensymphony.xwork2.ModelDriven;
+import com.xc.touchbox.controller.BaseAction;
 import com.xc.touchbox.model.User;
 
 @SuppressWarnings("serial")

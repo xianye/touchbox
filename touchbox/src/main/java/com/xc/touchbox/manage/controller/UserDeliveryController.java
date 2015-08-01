@@ -1,4 +1,4 @@
-package com.xc.touchbox.controller;
+package com.xc.touchbox.manage.controller;
 
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -6,14 +6,16 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
+import com.xc.touchbox.controller.BaseAction;
+
 @SuppressWarnings("serial")
 @ParentPackage("main-default")
-@Namespace("/manage/product")
+@Namespace("/manage/delivery")
 @Results({ @Result(name = "success", type = "redirect", location = "/index") })
-public class ProductController extends BaseAction {
+public class UserDeliveryController extends BaseAction {
 
 	/**
-	 * 功能：列表页 调用：GET /manage/product/list 返回：list.jsp
+	 * 功能：列表页 调用：GET /manage/delivery/list 返回：list.jsp
 	 * 
 	 * @return
 	 */
@@ -26,11 +28,11 @@ public class ProductController extends BaseAction {
 	}
 
 	/**
-	 * 功能：编辑页 调用：GET /manage/product/edit 返回：edit.jsp
+	 * 功能：编辑页 调用：GET /manage/delivery/view 返回：view.jsp
 	 * 
 	 * @return
 	 */
-	@Action(value = "edit", results = { @Result(name = "success", location = "edit.jsp") })
+	@Action(value = "view", results = { @Result(name = "success", location = "view.jsp") })
 	public String edit() {
 		this.fetchSessionAdmin();
 

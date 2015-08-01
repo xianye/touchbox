@@ -35,6 +35,7 @@ public interface CDAOTemplate extends GenericDAO {
 	public static final String SYSPARAM_API_WAREHOUSING_CHINAWAY_HTTPURL = "API_WAREHOUSING_CHINAWAY_HTTPURL";// 汉维仓储服务接口http地址
 	public static final String SYSPARAM_API_WAREHOUSING_CHINAWAY_COMPANY = "API_WAREHOUSING_CHINAWAY_COMPANY";// 汉维仓储服务接口货主编码
 	public static final String SYSPARAM_API_WAREHOUSING_CHINAWAY_WAREHOUSE = "API_WAREHOUSING_CHINAWAY_WAREHOUSE";// 汉维仓储服务接口仓库编码
+	public static final String SYSPARAM_QUARTZ_ENABLED = "QUARTZ_ENABLED";// 任务程序是否启用
 
 	public static final String CONSTANT_PLATFORM_WEB = "web";// 常量：PC网站
 	public static final String CONSTANT_PLATFORM_WAP = "wap";// 常量：手机wap

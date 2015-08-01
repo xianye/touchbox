@@ -1,12 +1,10 @@
 package com.xc.touchbox.service;
 
-import java.util.List;
+import java.util.Date;
 
 import com.xc.gospel.core.vo.PaginationSupport;
 import com.xc.touchbox.dao.CDAOTemplate;
-import com.xc.touchbox.model.Goods;
 import com.xc.touchbox.model.UserDelivery;
-import com.xc.touchbox.model.UserOrder;
 
 public interface UserDeliveryService extends CDAOTemplate{
 	
@@ -29,4 +27,16 @@ public interface UserDeliveryService extends CDAOTemplate{
 	 * @param obj 订单对象
 	 */
 	public void saveDelivery(UserDelivery obj);
+	
+	/**
+	 * 生成截止时间有效的发货单
+	 * 
+	 * @param endTime 不填默认为当前时间
+	 */
+	public void doBuildDeliveries(Date endTime);
+	
+	/**
+	 * 发送发货单至第三方仓储
+	 */
+	public void doSendDeliveries();
 }
